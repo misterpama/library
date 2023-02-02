@@ -1,0 +1,37 @@
+extend type Query {
+    books: [Book]
+    booksWithFilter(filter: BookFilter): [Book]
+    book(id: ID!): Book!
+}
+
+extend type Mutation {
+    newBook(book: BookInput!): Book
+}
+
+input BookInput {
+    name: String!
+    isbn: String!
+    authorId: Int!
+}
+
+type Book {
+    id: ID!
+    name: String!
+    isbn: String!
+    author: Author
+}
+
+input BookFilter {
+    name: FilterField
+    isbn: FilterField
+}
+
+input FilterField {
+    operator: String!
+    value: String!
+}
+
+#schema {
+#  query: QueryResolver
+#  mutation: MutationResolver
+#}
